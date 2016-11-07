@@ -19,7 +19,7 @@ if __name__ == "__main__":
     w2 = np.random.uniform(-1, 1, (8, 3))
     b2 = np.random.uniform(-1, 1, (8, 1))
 
-    iterations = 1000
+    iterations = 100000
     learning_rate = 0.3
 
     for i in range(iterations):
@@ -61,12 +61,9 @@ if __name__ == "__main__":
             # logger.debug("Layer 1 Bias : \n{}".format(b1))
             # logger.debug("Layer 2 Bias Delta : \n{}".format(learning_rate * d2))
 
-            error_sum += abs(np.sum(d3))
-
-        logger.debug("Overall error after {} iterations : {}".format(i+1, error_sum))
-        epsilon = 0.00000001
-        if abs(np.sum(d3)) < epsilon:
-            break
+            error_sum += abs(np.sum(np.absolute(d3)))
+        if i % 100 == 0: 
+          logger.info("Overall error after {} iterations : {}".format(i, error_sum))
 
     logger.info("Final error after {} iterations : {}".format(iterations, error_sum))
 
