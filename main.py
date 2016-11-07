@@ -17,11 +17,10 @@ if __name__ == "__main__":
     learning_examples = np.array(learning_examples, dtype=int)
     logger.debug("Learning Examples : \n{}".format(learning_examples))
 
-    for i in learning_examples.T:
-        i = i.reshape(-1, 1)
+    for i in range(1):
         # Add Bias
-        bi = np.r_[[[1]], i]
-        logger.debug("Learning Examples plus Bias: \n{}".format(bi))
+        binput = np.r_[np.full((1, 8), 1, dtype=int), learning_examples]
+        logger.debug("Learning Examples plus Bias: \n{}".format(binput))
 
         # Forward Propagation
 
@@ -29,12 +28,12 @@ if __name__ == "__main__":
         logger.info("Forward Propagation : Hidden Layer")
         hidden_weights = np.c_[np.full((3, 1), 1, dtype=int), np.full((3, 8), 0, dtype=int)]
         logger.debug("Hidden Weights plus Bias : \n{}".format(hidden_weights))
-        hidden_activations = hidden_weights @ bi
-        np.apply_along_axis(g, 1, hidden_activations)
+        hidden_activations = hidden_weights @ binput
+        # np.apply_along_axis(g, 1, hidden_activations)
         logger.debug("Hidden Activations : \n{}".format(hidden_activations))
 
         # Add Bias
-        bhidden_activations = np.r_[[[1]], hidden_activations]
+        bhidden_activations = np.c_[np.full((3, 1), 1, dtype=int), hidden_activations]
         logger.debug("Hidden Activations plus Bias : \n{}".format(bhidden_activations))
 
         # Output Layer
@@ -42,7 +41,7 @@ if __name__ == "__main__":
         output_weights = np.c_[np.full((8, 1), 1, dtype=int), np.full((8, 3), 0, dtype=int)]
         logger.debug("Output Weights plus Bias : \n{}".format(output_weights))
         output_activations = output_weights @ bhidden_activations
-        np.apply_along_axis(g, 1, output_activations)
+        # np.apply_along_axis(g, 1, output_activations)
         logger.debug("Output Activations : \n{}".format(output_activations))
 
         # Back Propagation
