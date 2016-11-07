@@ -9,7 +9,8 @@ def g(z):
     return 1/(1+math.exp(-z))
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    np.set_printoptions(formatter={'float_kind': lambda x: "%.3f" % x})
+    logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
     logger.info("Program started")
 
@@ -17,47 +18,43 @@ if __name__ == "__main__":
     learning_examples = np.array(learning_examples, dtype=int)
     logger.debug("Learning Examples : \n{}".format(learning_examples))
 
-    for i in range(1):
-        # Add Bias
-        binput = np.r_[np.full((1, 8), 1, dtype=int), learning_examples]
-        logger.debug("Learning Examples plus Bias: \n{}".format(binput))
+    blearn = np.r_[np.full((1, 8), 1, dtype=int), learning_examples]
 
-        # Forward Propagation
+    np.random.seed(0)
+    w1 = 2*np.random.random((3, 8)) - 1
+    bw1 = np.c_[np.full((3, 1), 1, dtype=int), w1]
+    w2 = 2*np.random.random((8, 3)) - 1
+    bw2 = np.c_[np.full((8, 1), 1, dtype=int), w2]
 
-        # Hidden Layer
-        logger.info("Forward Propagation : Hidden Layer")
-        hidden_weights = np.c_[np.full((3, 1), 1, dtype=int), np.full((3, 8), 0, dtype=int)]
-        logger.debug("Hidden Weights plus Bias : \n{}".format(hidden_weights))
-        hidden_activations = hidden_weights @ binput
-        # np.apply_along_axis(g, 1, hidden_activations)
-        logger.debug("Hidden Activations : \n{}".format(hidden_activations))
+    iterations = 1
+    for i in range(iterations):
+        a1 = learning_examples
+        ba1 = blearn
+        logger.debug("Layer 1 Activation : \n{}".format(learning_examples))
+        a2 = util.sigmoid(bw1@ba1)
+        logger.debug("Layer 2 Activation : \n{}".format(a2))
+        ba2 = np.r_[np.full((1, 8), 1, dtype=int), a2]
+        a3 = bw2@ba2
+        logger.debug("Layer 3 Activation : \n{}".format(a3))
+        ba3 = np.r_[np.full((1, 8), 1, dtype=int), a3]
 
-        # Add Bias
-        bhidden_activations = np.c_[np.full((3, 1), 1, dtype=int), hidden_activations]
-        logger.debug("Hidden Activations plus Bias : \n{}".format(bhidden_activations))
+        d3 = a3-a1
 
-        # Output Layer
-        logger.info("Forward Propagation : Output Layer")
-        output_weights = np.c_[np.full((8, 1), 1, dtype=int), np.full((8, 3), 0, dtype=int)]
-        logger.debug("Output Weights plus Bias : \n{}".format(output_weights))
-        output_activations = output_weights @ bhidden_activations
-        # np.apply_along_axis(g, 1, output_activations)
-        logger.debug("Output Activations : \n{}".format(output_activations))
+        logger.debug("Layer 3 Delta: \n{}".format(d3))
+        d2 = w2.T@d3*(a2 * (1 - a2))
+        logger.debug("Layer 2 Delta: \n{}".format(d2))
+        d1 = w1.T@d2*(a1 * (1 - a1))
+        logger.debug("Layer 1 Delta: \n{}".format(d3))
 
-        # Back Propagation
+        w2 += (d3 @ a2.T)
+        logger.debug("Weights 2: \n{}".format(w2))
+        bw2 = np.c_[np.full((8, 1), 1, dtype=int), w2]
+        w1 += (d2 @ a1.T)
+        logger.debug("Weights 1: \n{}".format(w1))
+        bw1 = np.c_[np.full((3, 1), 1, dtype=int), w1]
 
-        error_output = output_activations - i
-        logger.debug("Error Output : \n{}".format(error_output))
+    logger.info("Output after {} iterations : \n{}".format(iterations, a3))
 
-        logger.info("Backpropagation : Output Layer")
-        error_hidden_activation = hidden_activations * (1 - hidden_activations)
-        error_hidden = np.transpose(np.delete(hidden_weights, 0, 1) @ error_output) * error_hidden_activation
-        logger.debug("Error Hidden : \n{}".format(error_hidden))
-
-        # Update Weights
-        hidden_weights = hidden_weights + (hidden_activations @ error_output)
-
-        input()
 
 
 
