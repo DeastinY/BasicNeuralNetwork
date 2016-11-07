@@ -26,7 +26,12 @@ if __name__ == "__main__":
     w2 = 2*np.random.random((8, 3)) - 1
     bw2 = np.c_[np.full((8, 1), 1, dtype=int), w2]
 
-    iterations = 1
+    dw1 = np.zeros((3, 8))
+    dw2 = np.zeros((8, 3))
+
+    iterations = 50
+    learning_rate = 0.5
+
     for i in range(iterations):
         a1 = learning_examples
         ba1 = blearn
@@ -46,12 +51,15 @@ if __name__ == "__main__":
         d1 = w1.T@d2*(a1 * (1 - a1))
         logger.debug("Layer 1 Delta: \n{}".format(d3))
 
-        w2 += (d3 @ a2.T)
-        logger.debug("Weights 2: \n{}".format(w2))
-        bw2 = np.c_[np.full((8, 1), 1, dtype=int), w2]
-        w1 += (d2 @ a1.T)
-        logger.debug("Weights 1: \n{}".format(w1))
-        bw1 = np.c_[np.full((3, 1), 1, dtype=int), w1]
+        dw2 += (d3 @ a2.T)
+        logger.debug("Delta Weights 2: \n{}".format(w2))
+        w2 = 1/iterations*(dw2+learning_rate*w2)
+        bw2 = np.c_[np.full((8, 1), 1/iterations, dtype=int), w2]
+
+        dw1 += (d2 @ a1.T)
+        logger.debug("Delta Weights 1: \n{}".format(w1))
+        w1 = 1/iterations*(dw1+learning_rate*w1)
+        bw1 = np.c_[np.full((3, 1), 1/iterations, dtype=int), w1]
 
     logger.info("Output after {} iterations : \n{}".format(iterations, a3))
 
