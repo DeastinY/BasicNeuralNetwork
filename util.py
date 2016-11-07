@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # http://stackoverflow.com/questions/6534430/why-does-pythons-itertools-permutations-contain-duplicates-when-the-original
 def unique(iterable):
     seen = set()
@@ -14,4 +15,9 @@ def sigmoid_normal(x):
     import math
     return 1 / (1 + math.exp(-x))
 
+
+def dsigmoid_normal(x):
+    return x * (1 - x)
+
 sigmoid = np.vectorize(sigmoid_normal, otypes=[np.float])
+dsigmoid = np.vectorize(dsigmoid_normal, otypes=[np.float])
