@@ -17,7 +17,7 @@ def sigmoid_normal(x):
 
 
 def dsigmoid_normal(x):
-    return x * (1 - x)
+    return sigmoid_normal(x) * (1 - sigmoid_normal(x))
 
 sigmoid = np.vectorize(sigmoid_normal, otypes=[np.float])
 dsigmoid = np.vectorize(dsigmoid_normal, otypes=[np.float])
