@@ -1,6 +1,7 @@
 import util
 import numpy as np
 import logging
+import random
 import itertools
 
 if __name__ == "__main__":
@@ -19,22 +20,27 @@ if __name__ == "__main__":
     w2 = np.random.uniform(-1, 1, (8, 3))
     b2 = np.random.uniform(-1, 1, (8, 1))
 
-    iterations = 100000
+    iterations = 10000
     learning_rate = 0.3
 
     for i in range(iterations):
         error_sum = 0
-        for j in learning_examples:
-            a1 = np.array([j]).T
+        index=list(range(8))
+        np.random.shuffle(index)
+        for j in index:
+            a1 = np.array([learning_examples[j]]).T
             # logger.debug("Layer 1 Activation : \n{}".format(a1))
             logger.debug("In : {}".format(a1.T))
 
             a2 = (w1@a1)+b1
             # logger.debug("Layer 2 Activation : \n{}".format(util.sigmoid(a2)))
 
-            a3 = (w2@a2)+b2
+            a3 = (w2@util.sigmoid(a2))+b2
             # logger.debug("Layer 3 Activation : \n{}".format(a3))
             logger.debug("Out : {}\n".format(a3.T))
+
+            if i % 100 == random.randint(0,7):
+                logger.info("In : {}\nOut : {}".format(a1.T, a3.T))
 
             d3 = a1-a3
             # logger.debug("Layer 3 Delta: \n{}".format(d3))
@@ -47,7 +53,7 @@ if __name__ == "__main__":
             # logger.debug("Weights 2: \n{}".format(w2))
             # logger.debug("Weights 2 Delta: \n{}".format(w2delta))
 
-            w1delta = learning_rate * (np.outer(d2, util.sigmoid(a1)))
+            w1delta = learning_rate * (np.outer(d2, a1))
             w1 += w1delta
             # logger.debug("Weights 1: \n{}".format(w1))
             # logger.debug("Weights 1 Delta: \n{}".format(w1delta))
