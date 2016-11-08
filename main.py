@@ -20,7 +20,7 @@ if __name__ == "__main__":
     w2 = np.random.uniform(-1, 1, (8, 3))
     b2 = np.random.uniform(-1, 1, (8, 1))
 
-    iterations = 10000
+    iterations = 1000
     learning_rate = 0.3
 
     for i in range(iterations):
@@ -32,10 +32,12 @@ if __name__ == "__main__":
             # logger.debug("Layer 1 Activation : \n{}".format(a1))
             logger.debug("In : {}".format(a1.T))
 
-            a2 = (w1@a1)+b1
+            z2 = (w1@a1)+b1
+            a2 = util.sigmoid(z2)
             # logger.debug("Layer 2 Activation : \n{}".format(util.sigmoid(a2)))
 
-            a3 = (w2@util.sigmoid(a2))+b2
+            z3 = (w2@a2)+b2
+            a3 = util.sigmoid(z3)
             # logger.debug("Layer 3 Activation : \n{}".format(a3))
             logger.debug("Out : {}\n".format(a3.T))
 
