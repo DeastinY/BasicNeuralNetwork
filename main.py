@@ -20,7 +20,7 @@ if __name__ == "__main__":
     w2 = np.random.uniform(-1, 1, (8, 3))
     b2 = np.random.uniform(-1, 1, (8, 1))
 
-    iterations = 1000
+    iterations = 5000
     learning_rate = 0.3
 
     for i in range(iterations):
@@ -47,7 +47,7 @@ if __name__ == "__main__":
             d3 = a1-a3
             # logger.debug("Layer 3 Delta: \n{}".format(d3))
 
-            d2 = util.dsigmoid(a2)*(w2.T@d3)
+            d2 = util.dsigmoid(z2)*(w2.T@d3)
             # logger.debug("Layer 2 Delta: \n{}".format(d2))
 
             w2delta = learning_rate * (np.outer(d3, util.sigmoid(a2)))
