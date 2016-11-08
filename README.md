@@ -1,11 +1,19 @@
 # BasicNeuralNetwork
+A 3 layer Neural Network. The input consists of 8 elements, the hidden layer uses 3 nodes and the output is 8 elements as well.
+Bias is added at the input and hidden layer, the sigmoid function is used for activation.
 
-- w : weight
-- a : activation
-- d : delta
-- bw/ba/ : biased weight/activation
-- dw : delta weight
+## How to run
+1. Install requirements with `pip install -r requirements.txt`
+2. Run using `python3 main.py`
 
-Layer 1 : Input Layer, 8 Nodes  
-Layer 2 : Hidden Layer, 3 Nodes  
-Layer 3 : Output Layer, 8 Nodes  
+## Resources
+The implementation is mostly based on the *Advanced Concepts in Machine Learning* slides by [Kurt Driessen](https://www.researchgate.net/profile/Kurt_Driessens)
+
+- https://triangleinequality.wordpress.com/2014/03/27/neural-networks-part-1/
+- https://triangleinequality.wordpress.com/2014/03/31/neural-networks-part-2/
+- http://www.bogotobogo.com/python/python_Neural_Networks_Backpropagation_for_XOR_using_one_hidden_layer.php
+- https://medium.com/learning-new-stuff/how-to-learn-neural-networks-758b78f2736e#.tzmxfwvb6
+
+## Further Reading
+- https://karpathy.github.io/neuralnets/
+- https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721#.gdyx0872o
