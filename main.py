@@ -36,7 +36,6 @@ if __name__ == "__main__":
             # logger.debug("Layer 3 Activation : \n{}".format(a3))
             logger.debug("Out : {}\n".format(a3.T))
 
-            d3 = a3 * (util.sigmoid(a3) - a1)
             d3 = a1-a3
             # logger.debug("Layer 3 Delta: \n{}".format(d3))
 
