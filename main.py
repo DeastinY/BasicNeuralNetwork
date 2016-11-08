@@ -6,7 +6,7 @@ import itertools
 
 if __name__ == "__main__":
     np.set_printoptions(formatter={'float_kind': lambda x: "%.3f" % x})
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     logger.info("Program started")
 
@@ -30,7 +30,6 @@ if __name__ == "__main__":
         for j in index:
             a1 = np.array([learning_examples[j]]).T
             # logger.debug("Layer 1 Activation : \n{}".format(a1))
-            logger.debug("In : {}".format(a1.T))
 
             z2 = (w1@a1)+b1
             a2 = util.sigmoid(z2)
@@ -39,10 +38,9 @@ if __name__ == "__main__":
             z3 = (w2@a2)+b2
             a3 = util.sigmoid(z3)
             # logger.debug("Layer 3 Activation : \n{}".format(a3))
-            logger.debug("Out : {}\n".format(a3.T))
 
             if i % 100 == random.randint(0,7):
-                logger.info("In : {}\nOut : {}".format(a1.T, a3.T))
+                logger.debug("In : {}\nOut : {}".format(a1.T, a3.T))
 
             d3 = a1-a3
             # logger.debug("Layer 3 Delta: \n{}".format(d3))
