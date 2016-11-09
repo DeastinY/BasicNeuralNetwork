@@ -4,7 +4,7 @@ from bokeh.palettes import Spectral10
 from bokeh.plotting import figure, output_file, show
 
 if __name__ == '__main__':
-    learning_rate = 1.0
+    learning_rate = 0.7
     output_file('plot.html')
 
     # Random Weights

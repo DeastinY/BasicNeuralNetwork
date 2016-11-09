@@ -5,7 +5,7 @@ import random
 import itertools
 
 np.set_printoptions(formatter={'float_kind': lambda x: "%.3f" % x})
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logger.info("Program started")
 
@@ -34,11 +34,11 @@ def neural_net(iterations, learning_rate, random_weights = True, shuffle_samples
 
             z2 = (w1@a1)+b1
             a2 = util.sigmoid(z2)
-            # logger.debug("Layer 2 Activation : \n{}".format(util.sigmoid(a2)))
+            logger.debug("Layer 2 Activation : \n{}".format(util.sigmoid(a2)))
 
             z3 = (w2@a2)+b2
             a3 = util.sigmoid(z3)
-            # logger.debug("Layer 3 Activation : \n{}".format(a3))
+            logger.debug("Layer 3 Activation : \n{}".format(a3))
 
             if i % 100 == random.randint(0,7):
                 logger.debug("In : {}\nOut : {}".format(a1.T, a3.T))
@@ -51,12 +51,12 @@ def neural_net(iterations, learning_rate, random_weights = True, shuffle_samples
 
             w2delta = learning_rate * (np.outer(d3, a2))
             w2 += w2delta
-            # logger.debug("Weights 2: \n{}".format(w2))
+            logger.debug("Weights 2: \n{}".format(w2))
             # logger.debug("Weights 2 Delta: \n{}".format(w2delta))
 
             w1delta = learning_rate * (np.outer(d2, a1))
             w1 += w1delta
-            # logger.debug("Weights 1: \n{}".format(w1))
+            logger.debug("Weights 1: \n{}".format(w1))
             # logger.debug("Weights 1 Delta: \n{}".format(w1delta))
 
             b2 += learning_rate * d3
@@ -77,7 +77,7 @@ def neural_net(iterations, learning_rate, random_weights = True, shuffle_samples
 
 
 if __name__ == '__main__':
-    neural_net(1000, 0.3)
+    neural_net(1000, 0.7)
 
 
 
