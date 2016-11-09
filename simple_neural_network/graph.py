@@ -4,11 +4,12 @@ from bokeh.palettes import Spectral10
 from bokeh.plotting import figure, output_file, show
 
 if __name__ == '__main__':
-    output_file = ('plots.html')
+    learning_rate = 1.0
+    output_file('plot.html')
 
     # Random Weights
 
-    y = [main.neural_net(1000, 0.5, True, False ) for i in range(10)]
+    y = [main.neural_net(1000, learning_rate, True, False ) for i in range(10)]
     x = [i for i in range(1000)]
 
     p1 = figure(title='Influence of Random weight', x_axis_label='Learning iterations over the whole sample', y_axis_label='Sum of squared deviation from desired output')
@@ -18,7 +19,7 @@ if __name__ == '__main__':
 
     # Shuffle Input
 
-    y = [main.neural_net(1000, 0.5, False, True) for i in range(10)]
+    y = [main.neural_net(1000, learning_rate, False, True) for i in range(10)]
 
     p2 = figure(title='Influence of shuffled learning examples', x_axis_label='Learning iterations over the whole sample', y_axis_label='Sum of squared deviation from desired output')
 
