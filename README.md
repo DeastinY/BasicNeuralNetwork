@@ -15,6 +15,7 @@ Bias is added at the input and hidden layer, the sigmoid function is used for ac
 ## Resources
 The implementation is mostly based on the *Advanced Concepts in Machine Learning* slides by [Kurt Driessen](https://www.researchgate.net/profile/Kurt_Driessens)
 
+- http://outlace.com/Beginner-Tutorial-Backpropagation/
 - https://triangleinequality.wordpress.com/2014/03/27/neural-networks-part-1/
 - https://triangleinequality.wordpress.com/2014/03/31/neural-networks-part-2/
 - http://www.bogotobogo.com/python/python_Neural_Networks_Backpropagation_for_XOR_using_one_hidden_layer.php
