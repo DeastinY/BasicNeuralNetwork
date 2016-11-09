@@ -20,7 +20,7 @@ if __name__ == "__main__":
     w2 = np.random.uniform(-1, 1, (8, 3))
     b2 = np.random.uniform(-1, 1, (8, 1))
 
-    iterations = 5000
+    iterations = 13000
     learning_rate = 0.3
 
     for i in range(iterations):
@@ -48,22 +48,22 @@ if __name__ == "__main__":
             d2 = util.dsigmoid(z2)*(w2.T@d3)
             # logger.debug("Layer 2 Delta: \n{}".format(d2))
 
-            w2delta = learning_rate * (np.outer(d3, util.sigmoid(a2)))
+            w2delta = learning_rate * (np.outer(d3, a2))
             w2 += w2delta
-            # logger.debug("Weights 2: \n{}".format(w2))
+            logger.debug("Weights 2: \n{}".format(w2))
             # logger.debug("Weights 2 Delta: \n{}".format(w2delta))
 
             w1delta = learning_rate * (np.outer(d2, a1))
             w1 += w1delta
-            # logger.debug("Weights 1: \n{}".format(w1))
+            logger.debug("Weights 1: \n{}".format(w1))
             # logger.debug("Weights 1 Delta: \n{}".format(w1delta))
 
             b2 += learning_rate * d3
-            # logger.debug("Layer 2 Bias : \n{}".format(b2))
+            logger.debug("Layer 2 Bias : \n{}".format(b2))
             # logger.debug("Layer 2 Bias Delta : \n{}".format(learning_rate * d3))
 
             b1 += learning_rate * d2
-            # logger.debug("Layer 1 Bias : \n{}".format(b1))
+            logger.debug("Layer 1 Bias : \n{}".format(b1))
             # logger.debug("Layer 2 Bias Delta : \n{}".format(learning_rate * d2))
 
             error_sum += abs(np.sum(np.absolute(d3)))
