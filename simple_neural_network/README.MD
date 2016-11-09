@@ -2,7 +2,7 @@
 A 3 layer Neural Network. The input consists of 8 elements, the hidden layer uses 3 nodes and the output is 8 elements as well.
 Bias is added at the input and hidden layer, the sigmoid function is used for activation.
 
-<img src="img/structure.png" alt="Structure of the neural network" height="200px"/>
+<img src="img/structure.png" alt="Structure of the neural network" height="400px" align="center"/>
 
 ### How to run
 1. Install requirements with `pip install -r requirements.txt`
